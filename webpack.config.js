@@ -27,6 +27,51 @@ const config = env => ({
         exclude: /node_modules/,
         loader: 'eslint-loader',
       },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: 'file-loader',
+      },
+      {
+        test: /\.(css|scss|sass)$/,
+        exclude: /\.module\.(css|scss|sass)$/,
+        use: [
+          env && env.NODE_ENV === 'production' ? MiniCssExtractPlugin.loader : 'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+            },
+          },
+          'postcss-loader',
+          'sass-loader',
+        ],
+      },
+      {
+        test: /\.module\.(css|scss|sass)$/,
+        use: [
+          env && env.NODE_ENV === 'production' ? MiniCssExtractPlugin.loader : 'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: true,
+            },
+          },
+          'postcss-loader',
+          'sass-loader',
+        ],
+      },
     ],
   },
   resolve: {
