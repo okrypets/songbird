@@ -1,0 +1,11 @@
+.question__container {
+  display: grid;
+  grid-template-areas: 'image-container title' 'image-container player';
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: minmax(20px, auto) 1fr;
+  grid-column-gap: 1em;
+  grid-area: question;
+  background: #303030;
+  padding: 1em;
+  border-radius: 0.5em;
+}

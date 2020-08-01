@@ -1,0 +1,7 @@
+header {
+  display: grid;
+  grid-template-areas: 'logo score' 'navigation navigation';
+  color: #fff;
+  align-items: center;
+  grid-gap: 0.5em;
+}

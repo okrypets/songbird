@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import './Logo.scss'
 
 import logo from '../../assets/images/logo.svg';
 

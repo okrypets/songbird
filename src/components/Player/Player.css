@@ -1,0 +1,38 @@
+.rhap_container.player__container {
+  grid-area: player;
+  background: transparent;
+}
+
+.rhap_container.player__container .rhap_horizontal-reverse .rhap_controls-section {
+  flex-grow: 0;
+}
+
+.rhap_container.player__container .rhap_horizontal-reverse .rhap_controls-section button.rhap_rewind-button, .rhap_container.player__container .rhap_horizontal-reverse .rhap_controls-section button.rhap_forward-button {
+  display: none;
+}
+
+.rhap_container.player__container .rhap_horizontal-reverse .rhap_controls-section button svg > path {
+  fill: #28a645;
+}
+
+.rhap_container.player__container .rhap_horizontal-reverse .rhap_progress-section {
+  position: relative;
+}
+
+.rhap_container.player__container .rhap_horizontal-reverse .rhap_progress-section .rhap_time {
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+}
+
+.rhap_container.player__container .rhap_horizontal-reverse .rhap_progress-section .rhap_time.rhap_total-time {
+  right: 0;
+}
+
+.rhap_container.player__container .rhap_horizontal-reverse .rhap_progress-section .rhap_time.rhap_current-time {
+  left: 0;
+}
+
+.rhap_container.player__container .rhap_horizontal-reverse .rhap_progress-section .rhap_progress-indicator {
+  background-color: #28a645;
+}

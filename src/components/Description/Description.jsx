@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-
+import './Description.scss'
 import Image from '../Image/Image';
 import Title from '../Title/Title';
 import Player from '../Player/Player';

@@ -1,0 +1,7 @@
+.image__container {
+  grid-area: image-container;
+}
+
+.image__container img {
+  width: 200px;
+}

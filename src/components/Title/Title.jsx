@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import './Title.scss'
 
 const Title = ({ title, additionalTitle }) => {
     return (

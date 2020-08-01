@@ -1,0 +1,12 @@
+.logo__container {
+  grid-area: logo;
+  justify-self: flex-start;
+}
+
+.logo__container h1 {
+  margin: 0;
+}
+
+.logo__container img {
+  width: 200px;
+}

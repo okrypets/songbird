@@ -1,0 +1,36 @@
+.nav__container {
+  grid-area: navigation;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: #28a645;
+  border-radius: 0.25rem;
+}
+
+.nav__container.column {
+  flex-direction: column;
+}
+
+.nav__container .nav_item {
+  flex: auto;
+  text-align: center;
+}
+
+.nav__container .nav_item button {
+  width: 100%;
+  opacity: 1;
+}
+
+.nav__container .nav_item button:hover, .nav__container .nav_item button:active, .nav__container .nav_item button:focus, .nav__container .nav_item button:visited {
+  outline: 0;
+  background: none;
+  cursor: default;
+  border: 1px solid transparent;
+  box-shadow: none;
+}
+
+.nav__container .nav_item button.active {
+  color: #fff;
+  background-color: #1e7e34;
+  border-color: #1c7430;
+}

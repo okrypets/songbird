@@ -1,0 +1,10 @@
+main.main__container {
+  display: grid;
+  grid-template-areas: 'question question' 'answer description' 'next-button next-button';
+  grid-template-columns: repeat(2, 50%);
+  grid-gap: 1em;
+}
+
+main.main__container button {
+  grid-area: next-button;
+}

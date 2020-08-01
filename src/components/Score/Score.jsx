@@ -1,4 +1,5 @@
 import React from 'react';
+import './Score.scss'
 // import { number } from 'prop-types';
 import clsx from 'clsx';
 

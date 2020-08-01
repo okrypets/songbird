@@ -1,0 +1,35 @@
+.rhap_container.player__container {
+    grid-area: player;
+    background: transparent;
+    .rhap_horizontal-reverse {
+        .rhap_controls-section {
+            flex-grow: 0;
+            button {
+                &.rhap_rewind-button, 
+                &.rhap_forward-button {
+                    display: none;
+                }
+                svg > path {
+                    fill: #28a645;
+                }
+            }
+        }
+        .rhap_progress-section {
+            position: relative;            
+            .rhap_time {
+                position: absolute;
+                bottom: 0;
+                color: #fff;
+                &.rhap_total-time {
+                    right: 0;
+                }
+                &.rhap_current-time {
+                    left: 0;
+                }
+            }
+            .rhap_progress-indicator {
+                background-color: #28a645;
+            }
+        }
+    }
+}
