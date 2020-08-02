@@ -5,7 +5,11 @@ main.main__container {
     'next-button next-button';
     grid-template-columns: repeat(2, 50%);
     grid-gap: 1em;
-    button {
+    button.next-level {
         grid-area: next-button;
+        &:disabled {
+            background: #303030;
+            border-color: #424242;
+        }
     }
 }

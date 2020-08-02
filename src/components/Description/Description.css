@@ -1,3 +1,17 @@
 .description__container {
+  display: grid;
   grid-area: description;
+  color: #fff;
+  justify-content: normal;
+  border: 1px solid #424242;
+  border-radius: 0.25rem;
+  background: #303030;
+  padding: 1em;
+  grid-template-areas: 'image-container title' 'image-container player' 'text-description text-description';
+  grid-template-columns: 200px 1fr;
+  grid-gap: 1em;
+}
+
+.description__container .text-description {
+  grid-area: text-description;
 }

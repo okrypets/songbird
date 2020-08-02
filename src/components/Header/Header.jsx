@@ -8,12 +8,11 @@ import ListButtons from '../ListButtons/ListButtons';
 
 import { levelNavigationData } from '../../data';
 
-const Header = ({ level }) => {
-    // const { score } = props;
+const Header = ({ level, score }) => {
     return (
         <header className={clsx('header__container')}>
             <Logo />
-            <Score />
+            <Score scoreValue={score}/>
             <ListButtons data={levelNavigationData} level={level}/>
         </header>
     )
@@ -21,10 +20,12 @@ const Header = ({ level }) => {
 
 Header.propTypes = {
     level: PropTypes.number,
+    score: PropTypes.number.isRequired,
 }
 
 Header.defaultProps = {
     level: 1,
+
 };
 
 export default Header;

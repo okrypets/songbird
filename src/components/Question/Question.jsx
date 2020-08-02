@@ -18,8 +18,7 @@ const Question = ({ data, isRightAnswer }) => {
 }
 
 Question.propTypes = {
-    data: PropTypes.objectOf({
-        id: PropTypes.number,
+    data: PropTypes.shape({
         name: PropTypes.string,
         audio: PropTypes.string,
         image: PropTypes.string,
@@ -28,7 +27,7 @@ Question.propTypes = {
 }
 
 Question.defaultProps = {
-    data: [],
+    data: {},
     isRightAnswer: false,
 };
 

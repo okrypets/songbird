@@ -2,16 +2,33 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
-const Button = ({ value, className, cbSetNextLevel, cbGetIsRightAnswer, cbSetIndicate, disabled, id }) => {
-    
+const Button = ({ 
+    value, 
+    className, 
+    cbSetNextLevel, 
+    cbGetIsRightAnswer, 
+    cbSetIndicate, 
+    disabled, 
+    id,
+    indicate,
+}) => {    
     const handleClick = (idClick) => {        
         cbSetNextLevel();
-        cbGetIsRightAnswer(idClick);
         cbSetIndicate(idClick);
+        if (indicate) return;
+        cbGetIsRightAnswer(idClick);        
     }
 
     return (        
-        <button type="button" aria-label={value} className={clsx('btn', className)} onClick={() => handleClick(id)} disabled={disabled}>{value}</button>          
+        <button 
+        type="button" 
+        aria-label={value} 
+        className={clsx('btn', className)} 
+        onClick={() => handleClick(id)} 
+        disabled={disabled}
+        >
+            {value}
+        </button>          
     )
 }
 
@@ -23,6 +40,7 @@ Button.propTypes = {
     cbGetIsRightAnswer: PropTypes.func,
     disabled: PropTypes.bool,
     id: PropTypes.number,
+    indicate: PropTypes.string,
 }
 
 Button.defaultProps = {
@@ -33,6 +51,7 @@ Button.defaultProps = {
     cbSetIndicate: () => null,
     disabled: false,
     id: null,
+    indicate: null,
 };
 
 export default Button;

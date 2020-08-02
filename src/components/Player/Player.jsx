@@ -7,11 +7,11 @@ import 'react-h5-audio-player/lib/styles.css';
 const Player = ({ audioLink }) => {
     return (
         <AudioPlayer
-            // autoPlay
+            autoPlay={false}
+            autoPlayAfterSrcChange={false}
             src={audioLink}
-            onPlay={() => console.log("onPlay")}
             layout='horizontal-reverse'
-            customControlsSection={["MAIN_CONTROLS"]}
+            customControlsSection={["MAIN_CONTROLS", 'VOLUME_CONTROLS']}
             className="player__container"
         />     
     )

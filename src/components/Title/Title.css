@@ -2,3 +2,16 @@
   color: #fff;
   grid-area: title;
 }
+
+.title__container h2 {
+  border-bottom: 1px solid #424242;
+  margin: 0;
+  padding-bottom: 10px;
+}
+
+.title__container span {
+  border-bottom: 1px solid #424242;
+  margin: 0;
+  display: block;
+  line-height: 2;
+}

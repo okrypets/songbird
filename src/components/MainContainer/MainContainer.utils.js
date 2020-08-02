@@ -3,4 +3,6 @@ export const randomInteger = (min, max) => {
     return Math.floor(rand);
 }
 
+export const getDataById = (id, data) => data.filter(it => it.id === id);
+
 export default {};

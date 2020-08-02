@@ -1,10 +1,14 @@
 .rhap_container.player__container {
     grid-area: player;
     background: transparent;
+    padding: 0;
+    align-self: baseline;
+    box-shadow: none;
     .rhap_horizontal-reverse {
         .rhap_controls-section {
-            flex-grow: 0;
+            // flex-grow: 0;
             button {
+                margin: 0;
                 &.rhap_rewind-button, 
                 &.rhap_forward-button {
                     display: none;
@@ -15,7 +19,15 @@
             }
         }
         .rhap_progress-section {
-            position: relative;            
+            position: relative;
+            height: 55px;
+            flex: 10 1 auto; 
+            .rhap_progress-container {
+                // margin: 0.5em;
+                &:focus {
+                    outline: 0;
+                }  
+            }                  
             .rhap_time {
                 position: absolute;
                 bottom: 0;
@@ -33,3 +45,4 @@
         }
     }
 }
+

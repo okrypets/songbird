@@ -5,6 +5,11 @@ main.main__container {
   grid-gap: 1em;
 }
 
-main.main__container button {
+main.main__container button.next-level {
   grid-area: next-button;
+}
+
+main.main__container button.next-level:disabled {
+  background: #303030;
+  border-color: #424242;
 }

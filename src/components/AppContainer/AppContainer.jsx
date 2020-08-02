@@ -5,6 +5,7 @@ import MainContainer from '../MainContainer/MainContainer'
 
 const AppContainer = () => {
     const [level, setLevel] = useState(1);
+    const [score, setScore] = useState(0);
     const [isRightAnswer, setIsRightAnswer] = useState(false);
     const cbSetNextLevel = () => {        
         setLevel(level + 1);
@@ -13,14 +14,24 @@ const AppContainer = () => {
         console.log(bool);        
         setIsRightAnswer(bool);
     }
+    const cbSetScore = (scoreValue) => {
+        const newScore = score + scoreValue;
+        setScore(newScore);
+    }
     useEffect(() => {
         setIsRightAnswer(false);
     }, [level])
     
     return (
         <>
-        <Header level={level} />
-        <MainContainer level={level}  cbSetNextLevel={cbSetNextLevel} isRightAnswer={isRightAnswer} cbSetIsRightAnswer={cbSetIsRightAnswer}/>
+        <Header level={level} score={score}/>
+        <MainContainer 
+            level={level}  
+            cbSetNextLevel={cbSetNextLevel} 
+            isRightAnswer={isRightAnswer} 
+            cbSetIsRightAnswer={cbSetIsRightAnswer} 
+            cbSetScore={cbSetScore}
+        />
         </>
     )
 }

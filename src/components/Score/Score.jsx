@@ -1,24 +1,24 @@
 import React from 'react';
 import './Score.scss'
-// import { number } from 'prop-types';
+import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
-const Score = () => {
+const Score = ({ scoreValue }) => {
     return (
         <div className={clsx('score__container')}>
             <h5>Score: 
-                <span>{0}</span>
+                <span> {scoreValue}</span>
             </h5>          
         </div>
     )
 }
 
-// Score.propTypes = {
-//     score: number
-// }
+Score.propTypes = {
+    scoreValue: PropTypes.number,
+}
 
-// Score.defaultProps = {
-//     score: 0
-// };
+Score.defaultProps = {
+    scoreValue: 0,
+};
 
 export default Score;
