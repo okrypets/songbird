@@ -16,15 +16,5 @@ const App = () => {
     );  
 }
 
-// App.propTypes = {
-//   name: PropTypes.string
-// }
-
-// App.defaultProps = {
-//   name: ''
-// };
-
-// const AppWithHot = hot(module)(App);
-
 const mountNode = document.getElementById('app');
 ReactDOM.render(<App />, mountNode);

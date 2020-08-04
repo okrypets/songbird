@@ -12,6 +12,18 @@
   grid-gap: 1em;
 }
 
+@media screen and (max-width: 1199px) {
+  .description__container {
+    grid-template-areas: 'image-container title' 'player player' 'text-description text-description';
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .description__container {
+    grid-template-areas: 'image-container image-container' 'title title' 'player player' 'text-description text-description';
+  }
+}
+
 .description__container .text-description {
   grid-area: text-description;
 }

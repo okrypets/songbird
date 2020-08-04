@@ -6,13 +6,13 @@ import Image from '../Image/Image';
 import Title from '../Title/Title';
 import Player from '../Player/Player';
 
-const Question = ({ data, isRightAnswer }) => {
+const Question = ({ data, isRightAnswer, shouldStopPlayer }) => {
     const { audio, name, image } = data;
     return (
         <div className={clsx('question__container')}>
             <Image imageLink={isRightAnswer ? image : undefined}/>
             <Title title={isRightAnswer ? name : undefined}/>
-            <Player audioLink={audio}/>
+            <Player audioLink={audio} shouldStopPlayer={shouldStopPlayer}/>
         </div>
     )
 }
@@ -24,11 +24,13 @@ Question.propTypes = {
         image: PropTypes.string,
       }),
     isRightAnswer: PropTypes.bool,
+    shouldStopPlayer: PropTypes.bool,
 }
 
 Question.defaultProps = {
     data: {},
     isRightAnswer: false,
+    shouldStopPlayer: false,
 };
 
 export default Question;

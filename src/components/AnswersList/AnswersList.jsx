@@ -7,7 +7,7 @@ import './AnswersList.scss'
 import PropTypes from 'prop-types';
 import AnswerItem from './AnswerItem';
 
-const AnswersList = ({ data, cbGetIsRightAnswer, isRightAnswer, rightId }) => {
+const AnswersList = ({ data, cbGetIsRightAnswer, isRightAnswer, rightId, sbStopPlayer }) => {
     return (
         <div className={clsx('answer-list__container', 'btn-group-vertical')} role="group">
             {
@@ -19,6 +19,7 @@ const AnswersList = ({ data, cbGetIsRightAnswer, isRightAnswer, rightId }) => {
                     cbGetIsRightAnswer={cbGetIsRightAnswer}
                     isRightAnswer={isRightAnswer}
                     key={it.id}
+                    sbStopPlayer={sbStopPlayer}
                     />
                 )
             })
@@ -29,6 +30,7 @@ const AnswersList = ({ data, cbGetIsRightAnswer, isRightAnswer, rightId }) => {
 
 AnswersList.propTypes = {
     cbGetIsRightAnswer: PropTypes.func,
+    sbStopPlayer: PropTypes.func,
     isRightAnswer: PropTypes.bool,
     rightId: PropTypes.number,
     data: PropTypes.arrayOf(PropTypes.shape({
@@ -41,6 +43,7 @@ AnswersList.defaultProps = {
     data: [],
     rightId: null,
     cbGetIsRightAnswer: () => null,
+    sbStopPlayer: () => null,
     isRightAnswer: false,
 };
 

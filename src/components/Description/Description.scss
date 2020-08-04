@@ -13,6 +13,19 @@
         'text-description text-description';
     grid-template-columns: 200px 1fr;
     grid-gap: 1em;
+    @media screen and (max-width: 1199px) {
+        grid-template-areas:
+        'image-container title'
+        'player player'
+        'text-description text-description';
+    }
+    @media screen and (max-width: 500px) {
+        grid-template-areas:
+        'image-container image-container'
+        'title title'
+        'player player'
+        'text-description text-description';
+    }
     .text-description {
         grid-area: text-description;
     }

@@ -5,14 +5,13 @@
     align-self: baseline;
     box-shadow: none;
     .rhap_horizontal-reverse {
+        @media screen and (max-width: 400px) {
+            flex-direction: column-reverse;
+        }
         .rhap_controls-section {
             // flex-grow: 0;
             button {
                 margin: 0;
-                &.rhap_rewind-button, 
-                &.rhap_forward-button {
-                    display: none;
-                }
                 svg > path {
                     fill: #28a645;
                 }

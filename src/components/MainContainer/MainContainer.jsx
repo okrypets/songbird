@@ -19,6 +19,7 @@ const MainContainer = ({
     const [selectedItem, setSelectedItem] = useState();
     const [question, setQuestionData] = useState();
     const [tryValue, setTryValue] = useState(0);
+    const [shouldStopPlayer, setShouldStopPlayer] = useState(false);
     const activeData = birdsData[level - 1] || birdsData[0]
     const questionData = activeData[randomInteger(0, 5)];
 
@@ -26,12 +27,12 @@ const MainContainer = ({
         setQuestionData(questionData);
         setTryValue(0);
         setSelectedItem();
+        setShouldStopPlayer(false);
     }, [level]);
 
     useEffect(() => {
         if (isRightAnswer) {
             const scoreValue = 6 - tryValue;
-            console.log('scoreValue', scoreValue);
             cbSetScore(scoreValue);
         }
     }, [tryValue, isRightAnswer]);  
@@ -41,22 +42,25 @@ const MainContainer = ({
         setSelectedItem(selected[0]);
         if (isRightAnswer) return;
         setTryValue(tryValue + 1);
-        console.log(id);
         const isRight = id === question.id;
         cbSetIsRightAnswer(isRight);        
+    }
+    const sbStopPlayer = () => {
+        setShouldStopPlayer(true);
     }
     const rightId = question?.id;
 
     return (
         <main className={clsx('main__container')}>
-            <Question data={question} isRightAnswer={isRightAnswer}/>
+            <Question data={question} isRightAnswer={isRightAnswer} shouldStopPlayer={shouldStopPlayer}/>
             <AnswersList 
                 data={activeData} 
                 cbGetIsRightAnswer={cbGetIsRightAnswer} 
                 isRightAnswer={isRightAnswer} 
                 rightId={rightId}
+                sbStopPlayer={sbStopPlayer}
             />
-            <Description data={selectedItem}/>
+            <Description data={selectedItem} shouldStopPlayer={shouldStopPlayer}/>
             <Button value="Next Level" className='btn-success next-level' cbSetNextLevel={cbSetNextLevel} disabled={!isRightAnswer}/>
         </main>
     )

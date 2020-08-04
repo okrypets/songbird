@@ -11,7 +11,6 @@ const AppContainer = () => {
         setLevel(level + 1);
     }
     const cbSetIsRightAnswer = (bool) => {
-        console.log(bool);        
         setIsRightAnswer(bool);
     }
     const cbSetScore = (scoreValue) => {

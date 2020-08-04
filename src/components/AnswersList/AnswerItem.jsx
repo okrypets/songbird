@@ -2,19 +2,30 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import Button from '../Button/Button';
+import simpleAudio from '../SimpleAudio/SimpleAudio';
+import rightAudio from '../../assets/audio/rightAnswer.wav';
+import wrongAudio from '../../assets/audio/wrongAnswer.wav';
 
 const AnswerItem = ({ 
     item, 
     cbGetIsRightAnswer, 
     isRightAnswer, 
     rightId,
+    sbStopPlayer,
 }) => { 
     const [indicate, setIndicate] = useState();
     
     const cbSetIndicate = (id) => {
         if (isRightAnswer) return;
-        if (id === rightId) setIndicate('right');
-        else setIndicate('false');
+        if (id === rightId) {
+            setIndicate('right');
+            simpleAudio(rightAudio);
+            sbStopPlayer();
+        }
+        else {
+            simpleAudio(wrongAudio);
+            setIndicate('false');
+        }
     }
     useEffect(() => {
         return setIndicate();
@@ -42,6 +53,7 @@ AnswerItem.propTypes = {
         image: PropTypes.string,
       }),
     cbGetIsRightAnswer: PropTypes.func,
+    sbStopPlayer: PropTypes.func,
     isRightAnswer: PropTypes.bool,
     rightId: PropTypes.number,
 }
@@ -49,6 +61,7 @@ AnswerItem.propTypes = {
 AnswerItem.defaultProps = {
     item: {},
     cbGetIsRightAnswer: () => null,
+    sbStopPlayer: () => null,
     isRightAnswer: false,
     rightId: null
 };

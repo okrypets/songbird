@@ -1,9 +1,10 @@
 main.main__container {
     display: grid;
-    grid-template-areas: 'question question'
-    'answer description'
-    'next-button next-button';
-    grid-template-columns: repeat(2, 50%);
+    grid-template-areas: 
+        'question question'
+        'answer description'
+        'next-button next-button';
+    grid-template-columns: 220px 1fr;
     grid-gap: 1em;
     button.next-level {
         grid-area: next-button;
@@ -11,5 +12,12 @@ main.main__container {
             background: #303030;
             border-color: #424242;
         }
+    }
+    @media screen and (max-width: 767px) {
+        grid-template-areas:
+        'question question'
+        'answer answer'
+        'description description'
+        'next-button next-button';
     }
 }
