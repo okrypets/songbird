@@ -7,8 +7,12 @@ const AppContainer = () => {
     const [level, setLevel] = useState(1);
     const [score, setScore] = useState(0);
     const [isRightAnswer, setIsRightAnswer] = useState(false);
-    const cbSetNextLevel = () => {        
-        setLevel(level + 1);
+    const cbSetNextLevel = () => {
+        if (level === 7) {
+            setLevel(1);
+            setScore(0);
+        }
+        else setLevel(level + 1);        
     }
     const cbSetIsRightAnswer = (bool) => {
         setIsRightAnswer(bool);
@@ -30,6 +34,7 @@ const AppContainer = () => {
             isRightAnswer={isRightAnswer} 
             cbSetIsRightAnswer={cbSetIsRightAnswer} 
             cbSetScore={cbSetScore}
+            score={score}
         />
         </>
     )

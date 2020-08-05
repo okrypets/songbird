@@ -1,0 +1,16 @@
+.congratulations__container {
+    grid-area: congr;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #424242;
+    border-radius: 0.25rem;
+    background: #303030;
+    text-align: center;
+    h4, 
+    img {
+      margin-bottom: 2em;  
+    }
+}

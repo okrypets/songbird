@@ -1,4 +1,10 @@
 main.main__container {
+    &.Congratulations {
+        grid-template-areas: 
+        'congr';
+    grid-template-columns: 1fr; 
+    grid-template-rows: minmax(400px, 1fr);
+    }
     display: grid;
     grid-template-areas: 
         'question question'

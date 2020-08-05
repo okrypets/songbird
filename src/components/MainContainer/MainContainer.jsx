@@ -8,6 +8,7 @@ import Description from '../Description/Description';
 import Button from '../Button/Button';
 import { birdsData } from '../../data';
 import { randomInteger, getDataById } from './MainContainer.utils';
+import Congratulations from '../Congratulations/Congratulations'
 
 const MainContainer = ({ 
         cbSetNextLevel, 
@@ -15,6 +16,7 @@ const MainContainer = ({
         isRightAnswer, 
         cbSetIsRightAnswer,
         cbSetScore,
+        score
 }) => {
     const [selectedItem, setSelectedItem] = useState();
     const [question, setQuestionData] = useState();
@@ -24,10 +26,10 @@ const MainContainer = ({
     const questionData = activeData[randomInteger(0, 5)];
 
     useEffect(() => {
-        setQuestionData(questionData);
-        setTryValue(0);
-        setSelectedItem();
-        setShouldStopPlayer(false);
+            setQuestionData(questionData);
+            setTryValue(0);
+            setSelectedItem();
+            setShouldStopPlayer(false);
     }, [level]);
 
     useEffect(() => {
@@ -37,10 +39,10 @@ const MainContainer = ({
         }
     }, [tryValue, isRightAnswer]);  
 
-    const cbGetIsRightAnswer = (id) => {
+    const cbGetIsRightAnswer = (id, indicate) => {
         const selected = getDataById(id, activeData);
         setSelectedItem(selected[0]);
-        if (isRightAnswer) return;
+        if (isRightAnswer || indicate) return;
         setTryValue(tryValue + 1);
         const isRight = id === question.id;
         cbSetIsRightAnswer(isRight);        
@@ -49,19 +51,25 @@ const MainContainer = ({
         setShouldStopPlayer(true);
     }
     const rightId = question?.id;
-
+    const isCongratulations = level > 6;
     return (
-        <main className={clsx('main__container')}>
-            <Question data={question} isRightAnswer={isRightAnswer} shouldStopPlayer={shouldStopPlayer}/>
-            <AnswersList 
-                data={activeData} 
-                cbGetIsRightAnswer={cbGetIsRightAnswer} 
-                isRightAnswer={isRightAnswer} 
-                rightId={rightId}
-                sbStopPlayer={sbStopPlayer}
-            />
-            <Description data={selectedItem} shouldStopPlayer={shouldStopPlayer}/>
-            <Button value="Next Level" className='btn-success next-level' cbSetNextLevel={cbSetNextLevel} disabled={!isRightAnswer}/>
+        <main className={clsx('main__container', isCongratulations ? "Congratulations" : '')}>
+            {isCongratulations ? 
+            <Congratulations score={score} cbSetNextLevel={cbSetNextLevel}/>
+            : (
+            <>
+                <Question data={question} isRightAnswer={isRightAnswer} shouldStopPlayer={shouldStopPlayer}/>
+                <AnswersList 
+                    data={activeData} 
+                    cbGetIsRightAnswer={cbGetIsRightAnswer} 
+                    isRightAnswer={isRightAnswer} 
+                    rightId={rightId}
+                    sbStopPlayer={sbStopPlayer}
+                />
+                <Description data={selectedItem} shouldStopPlayer={shouldStopPlayer}/>
+                <Button value="Next Level" className='btn-success next-level' cbSetNextLevel={cbSetNextLevel} disabled={!isRightAnswer}/>
+            </>
+            )}            
         </main>
     )
 }
@@ -71,6 +79,7 @@ MainContainer.propTypes = {
     cbSetIsRightAnswer: PropTypes.func,
     cbSetScore: PropTypes.func,
     level: PropTypes.number,
+    score: PropTypes.number.isRequired,
     isRightAnswer: PropTypes.bool,
 }
 

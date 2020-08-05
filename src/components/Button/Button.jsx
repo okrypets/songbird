@@ -15,8 +15,7 @@ const Button = ({
     const handleClick = (idClick) => {        
         cbSetNextLevel();
         cbSetIndicate(idClick);
-        if (indicate) return;
-        cbGetIsRightAnswer(idClick);        
+        cbGetIsRightAnswer(idClick, indicate);        
     }
 
     return (        
