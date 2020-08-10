@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import './MainContainer.scss';
 import PropTypes from 'prop-types';
+import API from '../../API';
 import Question from '../Question/Question';
 import AnswersList from '../AnswersList/AnswersList';
 import Description from '../Description/Description';
 import Button from '../Button/Button';
-import { birdsData } from '../../data';
 import { randomInteger, getDataById } from './MainContainer.utils';
-import Congratulations from '../Congratulations/Congratulations'
+import Congratulations from '../Congratulations/Congratulations';
 
 const MainContainer = ({ 
         cbSetNextLevel, 
@@ -19,14 +19,35 @@ const MainContainer = ({
         score
 }) => {
     const [selectedItem, setSelectedItem] = useState();
+    const [activeData, setActiveData] = useState([]);
     const [question, setQuestionData] = useState();
     const [tryValue, setTryValue] = useState(0);
     const [shouldStopPlayer, setShouldStopPlayer] = useState(false);
-    const activeData = birdsData[level - 1] || birdsData[0]
-    const questionData = activeData[randomInteger(0, 5)];
+
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
-            setQuestionData(questionData);
+        setLoading(true);
+        API.get('/birdsData')
+            .then(res => {
+                console.log(res.data);
+                const activeDataRes = res.data[level - 1] || res.data[0]
+                setActiveData(activeDataRes);
+                const questionData = activeDataRes[randomInteger(0, 5)];
+                setQuestionData(questionData);
+            })
+            .catch(err => {
+                setError(true)
+                console.log(err.message);
+            })
+            .finally(()=> {
+                setLoading(false);
+            });
+    }, [level]);
+
+    useEffect(() => {
+            setQuestionData(question);
             setTryValue(0);
             setSelectedItem();
             setShouldStopPlayer(false);
@@ -51,7 +72,15 @@ const MainContainer = ({
         setShouldStopPlayer(true);
     }
     const rightId = question?.id;
-    const isCongratulations = level > 6;
+    const isCongratulations = level > 6;    
+
+    if (error) return (
+        <span className='ERROR'/>      
+    )
+
+    if (loading) return (
+        <span className='LOADING'/>      
+    )
     return (
         <main className={clsx('main__container', isCongratulations ? "Congratulations" : '')}>
             {isCongratulations ? 
