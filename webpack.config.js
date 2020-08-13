@@ -42,13 +42,6 @@ const config = env => ({
         test: /\.(woff|woff2|eot|ttf|otf|mp3|wav)$/,
         use: 'file-loader',
       },
-      // {
-      //   test: /\.(mp3|wav)$/,
-      //   loader: 'file-loader',
-      //   query: {
-      //     name: 'assets/audio/[name].[hash:8].[ext]'
-      //   }
-      // },
       {
         test: /\.(css|scss|sass)$/,
         exclude: /\.module\.(css|scss|sass)$/,
@@ -90,6 +83,8 @@ const config = env => ({
   plugins: [
     new HtmlWebpackPlugin({
       template: 'public/index.html',
+      filename: './index.html'
+      // template: './public/index.html',
     }),
     env && env.analyze ? new BundleAnalyzerPlugin() : new NothingPlugin(),
   ],

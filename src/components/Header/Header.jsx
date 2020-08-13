@@ -6,14 +6,14 @@ import Logo from '../Logo/Logo'
 import Score from '../Score/Score';
 import ListButtons from '../ListButtons/ListButtons';
 
-import { levelNavigationData } from '../../data';
+import DATA from '../../data';
 
 const Header = ({ level, score }) => {
     return (
         <header className={clsx('header__container')}>
             <Logo />
             <Score scoreValue={score}/>
-            <ListButtons data={levelNavigationData} level={level}/>
+            <ListButtons data={DATA.levelNavigationData} level={level}/>
         </header>
     )
 }

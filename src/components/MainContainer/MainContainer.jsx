@@ -31,15 +31,14 @@ const MainContainer = ({
         setLoading(true);
         API.get('/birdsData')
             .then(res => {
-                console.log(res.data);
                 const activeDataRes = res.data[level - 1] || res.data[0]
                 setActiveData(activeDataRes);
                 const questionData = activeDataRes[randomInteger(0, 5)];
                 setQuestionData(questionData);
             })
-            .catch(err => {
-                setError(true)
-                console.log(err.message);
+            .catch((err) => {                
+                setError(true);
+                throw new Error(err);
             })
             .finally(()=> {
                 setLoading(false);
@@ -75,11 +74,11 @@ const MainContainer = ({
     const isCongratulations = level > 6;    
 
     if (error) return (
-        <span className='ERROR'/>      
+        <span className='ERROR'>ERROR</span>      
     )
 
     if (loading) return (
-        <span className='LOADING'/>      
+        <span className='LOADING'>LOADING ...</span>         
     )
     return (
         <main className={clsx('main__container', isCongratulations ? "Congratulations" : '')}>

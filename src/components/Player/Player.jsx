@@ -8,11 +8,9 @@ const Player = ({ audioLink, shouldStopPlayer }) => {
     const playerEl = useRef(null)
     useEffect(() => {
         if (shouldStopPlayer) {
-            console.log(shouldStopPlayer);
             const audio = playerEl.current.audio.current;
             audio.pause();
             audio.currentTime = 0;
-            console.log(audio);
         }        
     }, [shouldStopPlayer])
     
