@@ -26,4 +26,13 @@ main.main__container {
         'description description'
         'next-button next-button';
     }
+    
+}
+.loading__container {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    .loading {
+        color: #fff;
+    }
 }

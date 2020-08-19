@@ -1,13 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import './Description.scss';
 import PropTypes from 'prop-types';
 import Image from '../Image/Image';
 import Title from '../Title/Title';
 import Player from '../Player/Player';
+import API from '../../API';
 
-const Description = ({ data }) => {
-    const { audio, name, image, species, description } = data;
+const Description = ({ data, shouldStopPlayer }) => {
+    // const { audio, name, image, species, description } = data;
+    const [image, setImage] = useState();
+
+    const { file, en, sp, loc, rec, rmk } = data;
+    useEffect(() => {  
+       let cleanupFunction = false;
+       if (sp) {
+        API.flickr.get(`${sp}`)
+        .then(res => {
+            if(cleanupFunction) {
+                setImage(res.data.photos.photo[0].url_m);            
+            }
+        })
+        .catch((err) => {  
+            throw new Error(err);
+        })
+       }       
+        cleanupFunction = true
+        return () => cleanupFunction;
+    }, [en])
+
     const isDataEmpty = Object.keys(data).length === 0;
     return (        
         <div className={clsx('description__container')}>
@@ -19,9 +40,15 @@ const Description = ({ data }) => {
             : 
             <>
                 <Image imageLink={image}/>
-                <Title title={name} additionalTitle={species}/>
-                <Player audioLink={audio}/>
-                <div className="text-description">{description}</div>
+                <Title title={en} additionalTitle={sp}/>
+                <Player audioLink={file} shouldStopPlayer={shouldStopPlayer}/>
+                <div className="text-description">
+                Locality: {loc}.
+                <br />
+                Recordist: {rec}.
+                <br />
+                {rmk}
+                </div>
             </>
             }            
         </div>
@@ -30,18 +57,19 @@ const Description = ({ data }) => {
 
 Description.propTypes = {
     data: PropTypes.shape({
-        name: PropTypes.string,
-        audio: PropTypes.string,
-        image: PropTypes.string,
-        species: PropTypes.string,
-        description: PropTypes.string,
+        file: PropTypes.string,
+        en: PropTypes.string,
+        sp: PropTypes.string,
+        loc: PropTypes.string,
+        rec: PropTypes.string,
+        rmk: PropTypes.string,        
       }),
-    // isRightAnswer: PropTypes.bool,
+    shouldStopPlayer: PropTypes.bool,
 }
 
 Description.defaultProps = {
     data: {},
-    // isRightAnswer: false,
+    shouldStopPlayer: false,
 };
 
 export default Description;

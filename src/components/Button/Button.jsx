@@ -38,7 +38,7 @@ Button.propTypes = {
     cbSetIndicate: PropTypes.func,
     cbGetIsRightAnswer: PropTypes.func,
     disabled: PropTypes.bool,
-    id: PropTypes.number,
+    id: PropTypes.string,
     indicate: PropTypes.string,
 }
 

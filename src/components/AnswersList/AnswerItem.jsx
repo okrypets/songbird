@@ -27,14 +27,15 @@ const AnswerItem = ({
             setIndicate('false');
         }
     }
-    useEffect(() => {
+    useEffect(() => {        
         return setIndicate();
     }, [item])
+    
     return (        
         <div className={clsx('answer-list_item')}>
             <span className={clsx('list_item_indicator', indicate)}/>
             <Button 
-                value={item.name} 
+                value={item.en} 
                 className='btn-block rounded-0' 
                 id={item.id} 
                 cbGetIsRightAnswer={cbGetIsRightAnswer}
@@ -47,15 +48,15 @@ const AnswerItem = ({
 
 AnswerItem.propTypes = {
     item: PropTypes.shape({
-        id: PropTypes.number,
-        name: PropTypes.string,
+        id: PropTypes.string,
+        en: PropTypes.string,
         audio: PropTypes.string,
         image: PropTypes.string,
       }),
     cbGetIsRightAnswer: PropTypes.func,
     sbStopPlayer: PropTypes.func,
     isRightAnswer: PropTypes.bool,
-    rightId: PropTypes.number,
+    rightId: PropTypes.string,
 }
 
 AnswerItem.defaultProps = {

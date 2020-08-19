@@ -32,9 +32,9 @@ AnswersList.propTypes = {
     cbGetIsRightAnswer: PropTypes.func,
     sbStopPlayer: PropTypes.func,
     isRightAnswer: PropTypes.bool,
-    rightId: PropTypes.number,
+    rightId: PropTypes.string,
     data: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number,
+        id: PropTypes.string,
         name: PropTypes.string
       })),
 }

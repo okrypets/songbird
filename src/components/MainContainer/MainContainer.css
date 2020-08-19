@@ -25,3 +25,13 @@ main.main__container button.next-level:disabled {
     grid-template-areas: 'question question' 'answer answer' 'description description' 'next-button next-button';
   }
 }
+
+.loading__container {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading__container .loading {
+  color: #fff;
+}

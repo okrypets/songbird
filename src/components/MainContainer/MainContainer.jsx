@@ -7,8 +7,10 @@ import Question from '../Question/Question';
 import AnswersList from '../AnswersList/AnswersList';
 import Description from '../Description/Description';
 import Button from '../Button/Button';
-import { randomInteger, getDataById } from './MainContainer.utils';
+import { randomInteger, getDataById, getUniqueDataArra } from './MainContainer.utils';
 import Congratulations from '../Congratulations/Congratulations';
+import DATA from '../../data';
+import loadingIcon from '../../assets/images/puff.svg';
 
 const MainContainer = ({ 
         cbSetNextLevel, 
@@ -27,14 +29,22 @@ const MainContainer = ({
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
+    const getLevelCat = DATA.levelNavigationData.find(it => it.id === level)?.cat;  
+
     useEffect(() => {
-        setLoading(true);
-        API.get('/birdsData')
+        let cleanupFunction = false;        
+        if (level <= 6) {
+            setLoading(true); 
+            API.xeno.get(`/recordings?query=${getLevelCat}+q:A+type:song`)
             .then(res => {
-                const activeDataRes = res.data[level - 1] || res.data[0]
-                setActiveData(activeDataRes);
+                console.log(res.data.recordings)
+                const activeDataRes = getUniqueDataArra(res.data.recordings);
+                const activeDataToSet = activeDataRes.slice(0, 6);                                 
                 const questionData = activeDataRes[randomInteger(0, 5)];
-                setQuestionData(questionData);
+                if (cleanupFunction) {
+                    setActiveData(activeDataToSet);
+                    setQuestionData(questionData);
+                }                
             })
             .catch((err) => {                
                 setError(true);
@@ -43,6 +53,9 @@ const MainContainer = ({
             .finally(()=> {
                 setLoading(false);
             });
+        }       
+        cleanupFunction = true
+        return () => cleanupFunction;     
     }, [level]);
 
     useEffect(() => {
@@ -78,7 +91,10 @@ const MainContainer = ({
     )
 
     if (loading) return (
-        <span className='LOADING'>LOADING ...</span>         
+        <div className="loading__container">
+        <span className='loading'>LOADING ...</span>
+        <img src={loadingIcon} alt=""/>   
+        </div>     
     )
     return (
         <main className={clsx('main__container', isCongratulations ? "Congratulations" : '')}>
@@ -86,6 +102,7 @@ const MainContainer = ({
             <Congratulations score={score} cbSetNextLevel={cbSetNextLevel}/>
             : (
             <>
+            
                 <Question data={question} isRightAnswer={isRightAnswer} shouldStopPlayer={shouldStopPlayer}/>
                 <AnswersList 
                     data={activeData} 
