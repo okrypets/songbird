@@ -20,12 +20,13 @@ const MainContainer = ({
         cbSetScore,
         score
 }) => {
+    
     const [selectedItem, setSelectedItem] = useState();
     const [activeData, setActiveData] = useState([]);
     const [question, setQuestionData] = useState();
     const [tryValue, setTryValue] = useState(0);
     const [shouldStopPlayer, setShouldStopPlayer] = useState(false);
-
+    console.log("MainContainer - render", tryValue, isRightAnswer)
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
@@ -37,10 +38,12 @@ const MainContainer = ({
             setLoading(true); 
             API.xeno.get(`/recordings?query=${getLevelCat}+q:A+type:song`)
             .then(res => {
+                console.log(res)
                 console.log(res.data.recordings)
                 const activeDataRes = getUniqueDataArra(res.data.recordings);
-                const activeDataToSet = activeDataRes.slice(0, 6);                                 
-                const questionData = activeDataRes[randomInteger(0, 5)];
+                const randomStartNumber = randomInteger(0, activeDataRes.length - 6);                       
+                const activeDataToSet = activeDataRes.slice(randomStartNumber, randomStartNumber + 6); 
+                const questionData = activeDataToSet[randomInteger(0, 5)];
                 if (cleanupFunction) {
                     setActiveData(activeDataToSet);
                     setQuestionData(questionData);
@@ -48,6 +51,7 @@ const MainContainer = ({
             })
             .catch((err) => {                
                 setError(true);
+                setLoading(false); 
                 throw new Error(err);
             })
             .finally(()=> {
@@ -57,6 +61,39 @@ const MainContainer = ({
         cleanupFunction = true
         return () => cleanupFunction;     
     }, [level]);
+
+    useEffect(() => { 
+        let cleanupFunction = false;
+        if (activeData.length > 0) {   
+            const newActiveData = [...activeData];      
+            newActiveData.map(async (it, index) => {
+                let imageValue = null;
+                let newIt = it;
+                await API.flickr.get(`${it.sp}`)
+                .then(res => {
+                    if (cleanupFunction) {
+                        imageValue = res.data.photos.photo[0].url_m; 
+                        newIt = {...it, image: imageValue};
+                        newActiveData[index] = newIt;
+                        if (it.id === question.id) {
+                            setQuestionData(newIt);
+                        }
+                        if (index === activeData.length - 1) {
+                            setActiveData(newActiveData)
+                        }                         
+                    }   
+                    return newIt;       
+                })
+                .catch((err) => {  
+                    throw new Error(err);
+                });
+                return newIt;
+            });
+            console.log(newActiveData)          
+        }
+        cleanupFunction = true
+        return () => cleanupFunction;    
+    }, [loading]);
 
     useEffect(() => {
             setQuestionData(question);
@@ -76,7 +113,8 @@ const MainContainer = ({
         const selected = getDataById(id, activeData);
         setSelectedItem(selected[0]);
         if (isRightAnswer || indicate) return;
-        setTryValue(tryValue + 1);
+        const newTryValue = tryValue + 1
+        setTryValue(newTryValue);
         const isRight = id === question.id;
         cbSetIsRightAnswer(isRight);        
     }

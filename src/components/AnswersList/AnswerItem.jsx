@@ -13,6 +13,7 @@ const AnswerItem = ({
     rightId,
     sbStopPlayer,
 }) => { 
+    console.log("AnswerItem - render", item.id)
     const [indicate, setIndicate] = useState();
     
     const cbSetIndicate = (id) => {

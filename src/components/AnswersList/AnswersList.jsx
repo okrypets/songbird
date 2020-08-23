@@ -1,6 +1,7 @@
 import React, { 
     // useState, 
-    // useEffect
+    // useEffect,
+    // useMemo
  } from 'react';
 import clsx from 'clsx';
 import './AnswersList.scss'
@@ -8,22 +9,23 @@ import PropTypes from 'prop-types';
 import AnswerItem from './AnswerItem';
 
 const AnswersList = ({ data, cbGetIsRightAnswer, isRightAnswer, rightId, sbStopPlayer }) => {
+    console.log("AnswersList - render")
+    const dataList = data.map(it => {
+            return(
+                <AnswerItem 
+                item={it}
+                rightId={rightId}
+                cbGetIsRightAnswer={cbGetIsRightAnswer}
+                isRightAnswer={isRightAnswer}
+                key={`${it.id}-${it.sp}`}
+                sbStopPlayer={sbStopPlayer}
+                />
+            )
+        }
+      );  
     return (
         <div className={clsx('answer-list__container', 'btn-group-vertical')} role="group">
-            {
-            data.map(it => {
-                return(
-                    <AnswerItem 
-                    item={it}
-                    rightId={rightId}
-                    cbGetIsRightAnswer={cbGetIsRightAnswer}
-                    isRightAnswer={isRightAnswer}
-                    key={it.id}
-                    sbStopPlayer={sbStopPlayer}
-                    />
-                )
-            })
-            }
+            {dataList}
         </div>
     )
 }

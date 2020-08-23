@@ -1,35 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import './Question.scss';
 import PropTypes from 'prop-types';
 import Image from '../Image/Image';
 import Title from '../Title/Title';
 import Player from '../Player/Player';
-import API from '../../API';
 
 const Question = ({ data, isRightAnswer, shouldStopPlayer }) => {
-
-    const [image, setImage] = useState();
-
-    const { file, en, sp } = data;
-    useEffect(() => {  
-       let cleanupFunction = false;
-       if (sp) {
-           API.flickr.get(`${sp}`)
-            .then(res => {
-                if (cleanupFunction) {
-                    setImage(res.data.photos.photo[0].url_m);   
-                }         
-            })
-            .catch((err) => {  
-                throw new Error(err);
-            });
-        }
-        cleanupFunction = true
-        return () => cleanupFunction; 
-    }, [en, isRightAnswer])
-
-    
+    console.log("Question - render")
+    const { file, en, image } = data;
     return (
         <div className={clsx('question__container')}>
             <Image imageLink={isRightAnswer ? image : undefined}/>
@@ -43,7 +22,7 @@ Question.propTypes = {
     data: PropTypes.shape({
         file: PropTypes.string,
         en: PropTypes.string,
-        sp: PropTypes.string,
+        image: PropTypes.string,
       }),
     isRightAnswer: PropTypes.bool,
     shouldStopPlayer: PropTypes.bool,

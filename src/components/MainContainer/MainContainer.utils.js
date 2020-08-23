@@ -15,6 +15,9 @@ export const getUniqueDataArra = arr => {
     return uniqArr;
 }
 
+export const setImagesForDataArrItem = () => {
+    
+}
 export const getDataById = (id, data) => data.filter(it => it.id === id);
 
 export default {};
