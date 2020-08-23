@@ -83,7 +83,8 @@ const config = env => ({
   plugins: [
     new HtmlWebpackPlugin({
       template: 'public/index.html',
-      filename: './index.html'
+      filename: './index.html',
+      favicon: "favicon.ico"
       // template: './public/index.html',
     }),
     env && env.analyze ? new BundleAnalyzerPlugin() : new NothingPlugin(),

@@ -28,9 +28,10 @@ const AnswerItem = ({
             setIndicate('false');
         }
     }
+
     useEffect(() => {        
         return setIndicate();
-    }, [item])
+    }, [item, indicate])
     
     return (        
         <div className={clsx('answer-list_item')}>

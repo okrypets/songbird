@@ -33,7 +33,9 @@ const MainContainer = ({
     const getLevelCat = DATA.levelNavigationData.find(it => it.id === level)?.cat;  
 
     useEffect(() => {
-        let cleanupFunction = false;        
+        let cleanupFunction = false; 
+        let activeDataToSet = [];
+        let questionData = {};
         if (level <= 6) {
             setLoading(true); 
             API.xeno.get(`/recordings?query=${getLevelCat}+q:A+type:song`)
@@ -42,12 +44,35 @@ const MainContainer = ({
                 console.log(res.data.recordings)
                 const activeDataRes = getUniqueDataArra(res.data.recordings);
                 const randomStartNumber = randomInteger(0, activeDataRes.length - 6);                       
-                const activeDataToSet = activeDataRes.slice(randomStartNumber, randomStartNumber + 6); 
-                const questionData = activeDataToSet[randomInteger(0, 5)];
-                if (cleanupFunction) {
-                    setActiveData(activeDataToSet);
-                    setQuestionData(questionData);
-                }                
+                activeDataToSet = activeDataRes.slice(randomStartNumber, randomStartNumber + 6); 
+                questionData = activeDataToSet[randomInteger(0, 5)];
+            })
+            .then(() => {
+                if (activeDataToSet.length > 0) {   
+                    const newActiveData = [...activeDataToSet];      
+                    newActiveData.map((it, index) => {
+                        let imageValue = null;
+                        let newIt = it;
+                        API.flickr.get(`${it.sp}`)
+                        .then(res => {
+                            imageValue = res.data.photos.photo[0].url_m; 
+                            newIt = {...it, image: imageValue};
+                            newActiveData[index] = newIt;                            
+                            if (it.id === questionData.id) {
+                                setQuestionData(newIt);
+                            }
+                            if (index === activeDataToSet.length - 1 && cleanupFunction) {                                
+                                setActiveData(newActiveData);
+                            }  
+                            return newIt;       
+                        })
+                        .catch((err) => {  
+                            throw new Error(err);
+                        });
+                        return newIt;
+                    });
+                    console.log(newActiveData);
+                }
             })
             .catch((err) => {                
                 setError(true);
@@ -62,39 +87,6 @@ const MainContainer = ({
         return () => cleanupFunction;     
     }, [level]);
 
-    useEffect(() => { 
-        let cleanupFunction = false;
-        if (activeData.length > 0) {   
-            const newActiveData = [...activeData];      
-            newActiveData.map(async (it, index) => {
-                let imageValue = null;
-                let newIt = it;
-                await API.flickr.get(`${it.sp}`)
-                .then(res => {
-                    if (cleanupFunction) {
-                        imageValue = res.data.photos.photo[0].url_m; 
-                        newIt = {...it, image: imageValue};
-                        newActiveData[index] = newIt;
-                        if (it.id === question.id) {
-                            setQuestionData(newIt);
-                        }
-                        if (index === activeData.length - 1) {
-                            setActiveData(newActiveData)
-                        }                         
-                    }   
-                    return newIt;       
-                })
-                .catch((err) => {  
-                    throw new Error(err);
-                });
-                return newIt;
-            });
-            console.log(newActiveData)          
-        }
-        cleanupFunction = true
-        return () => cleanupFunction;    
-    }, [loading]);
-
     useEffect(() => {
             setQuestionData(question);
             setTryValue(0);
@@ -106,8 +98,9 @@ const MainContainer = ({
         if (isRightAnswer) {
             const scoreValue = 6 - tryValue;
             cbSetScore(scoreValue);
-        }
-    }, [tryValue, isRightAnswer]);  
+        } 
+
+    }, [tryValue, isRightAnswer]);
 
     const cbGetIsRightAnswer = (id, indicate) => {
         const selected = getDataById(id, activeData);
@@ -118,6 +111,7 @@ const MainContainer = ({
         const isRight = id === question.id;
         cbSetIsRightAnswer(isRight);        
     }
+
     const sbStopPlayer = () => {
         setShouldStopPlayer(true);
     }

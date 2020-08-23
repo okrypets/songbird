@@ -46,7 +46,7 @@ AnswersList.defaultProps = {
     rightId: null,
     cbGetIsRightAnswer: () => null,
     sbStopPlayer: () => null,
-    isRightAnswer: false,
+    isRightAnswer: false
 };
 
 export default AnswersList;
