@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, 
+//    useEffect 
+} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import Button from '../Button/Button';
@@ -13,25 +15,24 @@ const AnswerItem = ({
     rightId,
     sbStopPlayer,
 }) => { 
-    console.log("AnswerItem - render", item.id)
-    const [indicate, setIndicate] = useState();
     
-    const cbSetIndicate = (id) => {
-        if (isRightAnswer) return;
-        if (id === rightId) {
+    const [indicate, setIndicate] = useState();
+
+    const cbSetIndicate = () => {
+        if (isRightAnswer || indicate) {
+            return cbGetIsRightAnswer(item.id);
+        };
+        if (item.id === rightId) {
             setIndicate('right');
             simpleAudio(rightAudio);
             sbStopPlayer();
         }
         else {
             simpleAudio(wrongAudio);
-            setIndicate('false');
+            setIndicate('false');             
         }
+        return cbGetIsRightAnswer(item.id);
     }
-
-    useEffect(() => {        
-        return setIndicate();
-    }, [item])
     
     return (        
         <div className={clsx('answer-list_item')}>
@@ -39,8 +40,7 @@ const AnswerItem = ({
             <Button 
                 value={item.en} 
                 className='btn-block rounded-0' 
-                id={item.id} 
-                cbGetIsRightAnswer={cbGetIsRightAnswer}
+                id={item.id}
                 cbSetIndicate={cbSetIndicate}
                 indicate={indicate}
             />

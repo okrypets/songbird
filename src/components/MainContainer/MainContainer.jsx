@@ -26,13 +26,14 @@ const MainContainer = ({
     const [question, setQuestionData] = useState();
     const [tryValue, setTryValue] = useState(0);
     const [shouldStopPlayer, setShouldStopPlayer] = useState(false);
-    console.log("MainContainer - render", tryValue, isRightAnswer)
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
     const getLevelCat = DATA.levelNavigationData.find(it => it.id === level)?.cat;  
 
     useEffect(() => {
+        setActiveData([]);
+        setQuestionData();
         let cleanupFunction = false; 
         let activeDataToSet = [];
         let questionData = {};
@@ -40,15 +41,13 @@ const MainContainer = ({
             setLoading(true); 
             API.xeno.get(`/recordings?query=${getLevelCat}+q:A+type:song`)
             .then(res => {
-                console.log(res)
-                console.log(res.data.recordings)
                 const activeDataRes = getUniqueDataArra(res.data.recordings);
                 const randomStartNumber = randomInteger(0, activeDataRes.length - 6);                       
                 activeDataToSet = activeDataRes.slice(randomStartNumber, randomStartNumber + 6); 
                 questionData = activeDataToSet[randomInteger(0, 5)];
             })
             .then(() => {
-                if (activeDataToSet.length > 0) {   
+                if (activeDataToSet.length > 0) {
                     const newActiveData = [...activeDataToSet];      
                     newActiveData.map((it, index) => {
                         let imageValue = null;
@@ -66,12 +65,12 @@ const MainContainer = ({
                             }  
                             return newIt;       
                         })
-                        .catch((err) => {  
+                        .catch((err) => { 
+                            setLoading(false); 
                             throw new Error(err);
                         });
                         return newIt;
                     });
-                    console.log(newActiveData);
                 }
             })
             .catch((err) => {                
@@ -79,10 +78,10 @@ const MainContainer = ({
                 setLoading(false); 
                 throw new Error(err);
             })
-            .finally(()=> {
+            .finally(() => {
                 setLoading(false);
-            });
-        }       
+            })
+        }
         cleanupFunction = true
         return () => cleanupFunction;     
     }, [level]);
@@ -102,10 +101,10 @@ const MainContainer = ({
 
     }, [tryValue, isRightAnswer]);
 
-    const cbGetIsRightAnswer = (id, indicate) => {
+    const cbGetIsRightAnswer = (id) => {
         const selected = getDataById(id, activeData);
         setSelectedItem(selected[0]);
-        if (isRightAnswer || indicate) return;
+        if (isRightAnswer) return;
         const newTryValue = tryValue + 1
         setTryValue(newTryValue);
         const isRight = id === question.id;

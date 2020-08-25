@@ -9,7 +9,6 @@ import Player from '../Player/Player';
 const REGEXPLINK = /^\/\//;
 
 const Description = ({ data, shouldStopPlayer }) => {
-    console.log("Description - render")
     const { file, en, sp, loc, rec, rmk, image } = data;    
     const audioLink = file?.replace(REGEXPLINK, "https://");
     const isDataEmpty = Object.keys(data).length === 0;

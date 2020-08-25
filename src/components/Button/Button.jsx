@@ -5,17 +5,13 @@ import clsx from 'clsx';
 const Button = ({ 
     value, 
     className, 
-    cbSetNextLevel, 
-    cbGetIsRightAnswer, 
+    cbSetNextLevel,
     cbSetIndicate, 
-    disabled, 
-    id,
-    indicate,
+    disabled
 }) => {  
-    const handleClick = (idClick) => {        
+    const handleClick = () => {        
         cbSetNextLevel();
-        cbSetIndicate(idClick);
-        cbGetIsRightAnswer(idClick, indicate);        
+        cbSetIndicate();       
     }
 
     return (        
@@ -23,7 +19,7 @@ const Button = ({
         type="button" 
         aria-label={value} 
         className={clsx('btn', className)} 
-        onClick={() => handleClick(id)} 
+        onClick={handleClick} 
         disabled={disabled}
         >
             {value}
@@ -36,21 +32,15 @@ Button.propTypes = {
     className: PropTypes.string,
     cbSetNextLevel: PropTypes.func,
     cbSetIndicate: PropTypes.func,
-    cbGetIsRightAnswer: PropTypes.func,
     disabled: PropTypes.bool,
-    id: PropTypes.string,
-    indicate: PropTypes.string,
 }
 
 Button.defaultProps = {
     value: "",
     className: '',
-    cbGetIsRightAnswer: () => null,
     cbSetNextLevel: () => null,
     cbSetIndicate: () => null,
     disabled: false,
-    id: null,
-    indicate: null,
 };
 
 export default Button;

@@ -9,7 +9,6 @@ import Player from '../Player/Player';
 const REGEXPLINK = /^\/\//;
 
 const Question = ({ data, isRightAnswer, shouldStopPlayer }) => {
-    console.log("Question - render")
     const { file, en, image } = data;
     const audioLink = file?.replace(REGEXPLINK, "https://");
     return (

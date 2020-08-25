@@ -27,3 +27,7 @@
 .description__container .text-description {
   grid-area: text-description;
 }
+
+.description__container h2 {
+  font-size: 1.5rem;
+}
