@@ -6,14 +6,17 @@ import Image from '../Image/Image';
 import Title from '../Title/Title';
 import Player from '../Player/Player';
 
+const REGEXPLINK = /^\/\//;
+
 const Question = ({ data, isRightAnswer, shouldStopPlayer }) => {
     console.log("Question - render")
     const { file, en, image } = data;
+    const audioLink = file?.replace(REGEXPLINK, "https://");
     return (
         <div className={clsx('question__container')}>
             <Image imageLink={isRightAnswer ? image : undefined}/>
             <Title title={isRightAnswer ? en : undefined}/>
-            <Player audioLink={file} shouldStopPlayer={shouldStopPlayer}/>
+            <Player audioLink={audioLink} shouldStopPlayer={shouldStopPlayer}/>
         </div>
     )
 }
