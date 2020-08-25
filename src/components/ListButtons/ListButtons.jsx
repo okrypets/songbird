@@ -10,7 +10,12 @@ const ListButtons = ({ data, additionlCLassName, level }) => {
         <div className={clsx('nav__container', additionlCLassName)}>
             {data.map(it => {
                 const setActiveClass = it.id === level ? 'active' : '';
-                return <div className={clsx('nav_item', setActiveClass)} key={it.id}><Button disabled value={it.name} className={clsx('btn-success', setActiveClass)}/></div>
+                return <div 
+                    className={clsx('nav_item', setActiveClass)} 
+                    key={it.id}
+                >
+                    <Button disabled value={it.name} className={clsx('btn-success', setActiveClass)}/>
+                </div>
             })}
         </div>
     )

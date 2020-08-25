@@ -18,6 +18,3 @@ const API = {
 } ;
 
 export default API;
-
-// https://www.flickr.com/services/rest/?method=flickr.galleries.getPhotos&api_key=47adb18f31b7a4cedd0dba1b1f372ff7&gallery_id=72157715555854057&extras=url_m&format=rest
-// https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=47adb18f31b7a4cedd0dba1b1f372ff7&tag_mode=all&text=birds&extras=url_m&per_page=1&page=1&format=json&nojsoncallback=1&tags=

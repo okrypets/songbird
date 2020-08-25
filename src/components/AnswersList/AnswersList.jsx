@@ -1,15 +1,11 @@
-import React, { 
-    // useState, 
-    // useEffect,
-    // useMemo
- } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import './AnswersList.scss'
 import PropTypes from 'prop-types';
 import AnswerItem from './AnswerItem';
 
 const AnswersList = ({ data, cbGetIsRightAnswer, isRightAnswer, rightId, sbStopPlayer }) => {
-    console.log("AnswersList - render")
+    console.log("AnswersList - render");
     const dataList = data.map(it => {
             return(
                 <AnswerItem 

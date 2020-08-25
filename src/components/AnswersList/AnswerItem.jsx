@@ -31,7 +31,7 @@ const AnswerItem = ({
 
     useEffect(() => {        
         return setIndicate();
-    }, [item, indicate])
+    }, [item])
     
     return (        
         <div className={clsx('answer-list_item')}>

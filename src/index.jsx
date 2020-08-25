@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import PropTypes from 'prop-types';
-// import { hot } from 'react-hot-loader';
 
 import './assets/style/style.scss';
 

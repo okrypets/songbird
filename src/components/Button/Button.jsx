@@ -11,8 +11,7 @@ const Button = ({
     disabled, 
     id,
     indicate,
-}) => { 
-    console.log("Button - render", id)   
+}) => {  
     const handleClick = (idClick) => {        
         cbSetNextLevel();
         cbSetIndicate(idClick);
