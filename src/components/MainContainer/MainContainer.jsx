@@ -45,6 +45,8 @@ const MainContainer = ({
                 const randomStartNumber = randomInteger(0, activeDataRes.length - 6);                       
                 activeDataToSet = activeDataRes.slice(randomStartNumber, randomStartNumber + 6); 
                 questionData = activeDataToSet[randomInteger(0, 5)];
+                // setQuestionData(questionData);
+                // setActiveData(newActiveData);
             })
             .then(() => {
                 if (activeDataToSet.length > 0) {
@@ -66,7 +68,9 @@ const MainContainer = ({
                             return newIt;       
                         })
                         .catch(() => {
+                            setQuestionData(it);
                             setLoading(false);
+                            setActiveData(newActiveData);
                             console.log(`Не удалось загрузить картику для - ${it.sp}`);
                         })
                         return newIt;
