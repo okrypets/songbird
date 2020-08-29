@@ -149,7 +149,7 @@ const MainContainer = ({
                     sbStopPlayer={sbStopPlayer}
                 />
                 <Description data={selectedItem} shouldStopPlayer={shouldStopPlayer}/>
-                <Button value="Next Level" className='btn-success next-level' cbSetNextLevel={cbSetNextLevel} />
+                <Button value="Next Level" className='btn-success next-level' cbSetNextLevel={cbSetNextLevel} disabled={!isRightAnswer}/>
             </>
             )}            
         </main>
@@ -174,5 +174,3 @@ MainContainer.defaultProps = {
 };
 
 export default MainContainer;
-
-/* disabled={!isRightAnswer} */
