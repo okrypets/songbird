@@ -68,7 +68,7 @@ const MainContainer = ({
                         })
                         .catch((err) => { 
                             setLoading(false); 
-                            throw new Error(err);
+                            console.error(err);
                         });
                         return newIt;
                     });
@@ -77,7 +77,7 @@ const MainContainer = ({
             .catch((err) => {                
                 setError(true);
                 setLoading(false); 
-                throw new Error(err);
+                console.error(err);
             })
             .finally(() => {
                 setLoading(false);
