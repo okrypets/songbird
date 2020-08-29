@@ -68,7 +68,6 @@ const MainContainer = ({
                             return newIt;       
                         })
                         .catch(() => {
-                            setQuestionData(it);
                             setLoading(false);
                             setActiveData(newActiveData);
                             console.log(`Не удалось загрузить картику для - ${it.sp}`);
