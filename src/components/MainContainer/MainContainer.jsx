@@ -27,7 +27,6 @@ const MainContainer = ({
     const [tryValue, setTryValue] = useState(0);
     const [shouldStopPlayer, setShouldStopPlayer] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
     const [hasIndicate, setHasInicate] = useState([]);
 
     const getLevelCat = DATA.levelNavigationData.find(it => it.id === level)?.cat;  
@@ -66,17 +65,15 @@ const MainContainer = ({
                             }  
                             return newIt;       
                         })
-                        .catch((err) => { 
-                            setLoading(false); 
-                            console.error(err);
-                        });
+                        .catch(() => {
+                            setLoading(false);
+                            console.log(`Не удалось загрузить картику для - ${it.sp}`);
+                        })
                         return newIt;
                     });
                 }
             })
-            .catch((err) => {                
-                setError(true);
-                setLoading(false); 
+            .catch((err) => {
                 console.error(err);
             })
             .finally(() => {
@@ -130,10 +127,6 @@ const MainContainer = ({
     const rightId = question?.id;
     const isCongratulations = level > 6;    
 
-    if (error) return (
-        <span className='ERROR'>ERROR</span>      
-    )
-
     if (loading) return (
         <div className="loading__container">
         <span className='loading'>LOADING ...</span>
@@ -156,7 +149,7 @@ const MainContainer = ({
                     sbStopPlayer={sbStopPlayer}
                 />
                 <Description data={selectedItem} shouldStopPlayer={shouldStopPlayer}/>
-                <Button value="Next Level" className='btn-success next-level' cbSetNextLevel={cbSetNextLevel} disabled={!isRightAnswer}/>
+                <Button value="Next Level" className='btn-success next-level' cbSetNextLevel={cbSetNextLevel} />
             </>
             )}            
         </main>
@@ -181,3 +174,5 @@ MainContainer.defaultProps = {
 };
 
 export default MainContainer;
+
+/* disabled={!isRightAnswer} */
