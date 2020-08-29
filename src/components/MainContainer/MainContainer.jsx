@@ -21,13 +21,14 @@ const MainContainer = ({
         score
 }) => {
     
-    const [selectedItem, setSelectedItem] = useState();
+    const [selectedItem, setSelectedItem] = useState({});
     const [activeData, setActiveData] = useState([]);
-    const [question, setQuestionData] = useState();
+    const [question, setQuestionData] = useState({});
     const [tryValue, setTryValue] = useState(0);
     const [shouldStopPlayer, setShouldStopPlayer] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [hasIndicate, setHasInicate] = useState([]);
 
     const getLevelCat = DATA.levelNavigationData.find(it => it.id === level)?.cat;  
 
@@ -89,8 +90,9 @@ const MainContainer = ({
     useEffect(() => {
             setQuestionData(question);
             setTryValue(0);
-            setSelectedItem();
+            setSelectedItem({});
             setShouldStopPlayer(false);
+            setHasInicate([]);
     }, [level]);
 
     useEffect(() => {
@@ -101,12 +103,23 @@ const MainContainer = ({
 
     }, [tryValue, isRightAnswer]);
 
+    const checkHasItemIndicate = id => {
+        const isInclude = (hasIndicate || []).some(it => it === id);
+        if (isInclude || isRightAnswer) return true;
+        const newHasIndicate = [...hasIndicate, id];
+        setHasInicate(newHasIndicate);
+        return false;
+    }
+
     const cbGetIsRightAnswer = (id) => {
+        const hasItemIndicate = checkHasItemIndicate(id);
         const selected = getDataById(id, activeData);
         setSelectedItem(selected[0]);
         if (isRightAnswer) return;
-        const newTryValue = tryValue + 1
-        setTryValue(newTryValue);
+        if (!hasItemIndicate) {
+            const newTryValue = tryValue + 1
+            setTryValue(newTryValue);
+        }        
         const isRight = id === question.id;
         cbSetIsRightAnswer(isRight);        
     }
