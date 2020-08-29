@@ -1,2 +1,2 @@
 # songbird
-demo: https://songbird-okrypets.netlify.app/
+demo: https://okrypets-songbird.netlify.app/
