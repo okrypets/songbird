@@ -1,0 +1,11 @@
+.image__container {
+    grid-area: image-container;
+    overflow: hidden;
+    display: flex;
+    max-height: 160px;
+    border-radius: 0.5em;
+    img {
+        width: 200px;
+        object-fit: cover;
+    }
+}

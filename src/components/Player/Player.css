@@ -1,0 +1,49 @@
+.rhap_container.player__container {
+  grid-area: player;
+  background: transparent;
+  padding: 0;
+  align-self: baseline;
+  box-shadow: none;
+}
+
+@media screen and (max-width: 400px) {
+  .rhap_container.player__container .rhap_horizontal-reverse {
+    flex-direction: column-reverse;
+  }
+}
+
+.rhap_container.player__container .rhap_horizontal-reverse .rhap_controls-section button {
+  margin: 0;
+}
+
+.rhap_container.player__container .rhap_horizontal-reverse .rhap_controls-section button svg > path {
+  fill: #28a645;
+}
+
+.rhap_container.player__container .rhap_horizontal-reverse .rhap_progress-section {
+  position: relative;
+  height: 55px;
+  flex: 10 1 auto;
+}
+
+.rhap_container.player__container .rhap_horizontal-reverse .rhap_progress-section .rhap_progress-container:focus {
+  outline: 0;
+}
+
+.rhap_container.player__container .rhap_horizontal-reverse .rhap_progress-section .rhap_time {
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+}
+
+.rhap_container.player__container .rhap_horizontal-reverse .rhap_progress-section .rhap_time.rhap_total-time {
+  right: 0;
+}
+
+.rhap_container.player__container .rhap_horizontal-reverse .rhap_progress-section .rhap_time.rhap_current-time {
+  left: 0;
+}
+
+.rhap_container.player__container .rhap_horizontal-reverse .rhap_progress-section .rhap_progress-indicator {
+  background-color: #28a645;
+}

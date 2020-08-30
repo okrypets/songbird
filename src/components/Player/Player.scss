@@ -1,0 +1,47 @@
+.rhap_container.player__container {
+    grid-area: player;
+    background: transparent;
+    padding: 0;
+    align-self: baseline;
+    box-shadow: none;
+    .rhap_horizontal-reverse {
+        @media screen and (max-width: 400px) {
+            flex-direction: column-reverse;
+        }
+        .rhap_controls-section {
+            // flex-grow: 0;
+            button {
+                margin: 0;
+                svg > path {
+                    fill: #28a645;
+                }
+            }
+        }
+        .rhap_progress-section {
+            position: relative;
+            height: 55px;
+            flex: 10 1 auto; 
+            .rhap_progress-container {
+                // margin: 0.5em;
+                &:focus {
+                    outline: 0;
+                }  
+            }                  
+            .rhap_time {
+                position: absolute;
+                bottom: 0;
+                color: #fff;
+                &.rhap_total-time {
+                    right: 0;
+                }
+                &.rhap_current-time {
+                    left: 0;
+                }
+            }
+            .rhap_progress-indicator {
+                background-color: #28a645;
+            }
+        }
+    }
+}
+

@@ -1,0 +1,45 @@
+.answer-list__container {
+  grid-area: answer;
+  justify-content: normal;
+  border: 1px solid #424242;
+  border-radius: 0.25rem;
+  background: #303030;
+  align-self: baseline;
+}
+
+.answer-list__container .answer-list_item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 0.5em;
+  border-bottom: 1px solid #424242;
+}
+
+.answer-list__container .answer-list_item:last-of-type {
+  border-bottom: none;
+}
+
+.answer-list__container .answer-list_item:hover {
+  background-color: #555;
+}
+
+.answer-list__container .answer-list_item span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-flex;
+  background-color: #222;
+}
+
+.answer-list__container .answer-list_item span.right {
+  background-color: #28a545;
+}
+
+.answer-list__container .answer-list_item span.false {
+  background-color: red;
+}
+
+.answer-list__container .answer-list_item button {
+  color: #fff;
+  text-align: left;
+}

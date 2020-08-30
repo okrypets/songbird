@@ -1,0 +1,17 @@
+@import '~bootstrap/scss/bootstrap';
+
+body {
+    background-color: #222;
+    #app {
+        display: grid;
+        grid-gap: 1em;
+    }
+}
+button, 
+button.btn {
+    &:active,
+    &:focus {
+        outline: 0;
+        box-shadow: none;
+    }
+}
